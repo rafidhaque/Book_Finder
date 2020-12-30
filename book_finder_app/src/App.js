@@ -1,13 +1,14 @@
 import "./App.css";
-import Header from "./Header";
-import Books from "./Books";
+import Home from "./Home";
+import { BrowserRouter, Route } from "react-router-dom";
+import BookDetails from "./BookDetails";
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <Books />
-    </div>
+    <BrowserRouter>
+      <Route path="/" exact={true} component={Home} />
+      <Route path="/book" component={BookDetails} />
+    </BrowserRouter>
   );
 }
 
