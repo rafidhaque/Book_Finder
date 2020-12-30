@@ -9,6 +9,7 @@ class Books extends Component {
     this.state = {
       books: [],
       searchField: "",
+      sort: "",
     };
   }
 
@@ -27,12 +28,18 @@ class Books extends Component {
       });
   };
 
+  handleSort = (e) => {
+    console.log(e.target.value);
+    this.setState({ sort: e.target.value });
+  };
+
   render() {
     return (
       <div>
         <SearchArea
           searchBook={this.searchBook}
           handleSearch={this.handleSearch}
+          handleSort={this.handleSort}
         />
         <BookList books={this.state.books} />
       </div>
