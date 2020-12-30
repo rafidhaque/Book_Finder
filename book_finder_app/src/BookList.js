@@ -13,6 +13,7 @@ class BookList extends Component {
           return (
             <BookCard
               key={i}
+              handle={book.id}
               image={book.volumeInfo.imageLinks.thumbnail}
               title={book.volumeInfo.title}
               author={book.volumeInfo.authors}

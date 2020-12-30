@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 
-class BookDetails extends Component {
-  render() {
-    return (
-      <div>
-        <h1>Hello</h1>
-      </div>
-    );
-  }
-}
+const BookDetails = ({ match }) => {
+  console.log(match.params.handle);
+  return (
+    <div>
+      <h1>Hello</h1>
+    </div>
+  );
+};
 
 export default BookDetails;
