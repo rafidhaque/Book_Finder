@@ -61,6 +61,16 @@ class Books extends Component {
           a.volumeInfo.publishedDate.substring(0, 4) -
             b.volumeInfo.publishedDate.substring(0, 4)
         );
+      } else if (this.state.sort === "A-Z") {
+        return parseInt(
+          a.volumeInfo.title.substring(0, 1).charCodeAt(0) -
+            b.volumeInfo.title.substring(0, 1).charCodeAt(0)
+        );
+      } else if (this.state.sort === "Z-A") {
+        return parseInt(
+          b.volumeInfo.title.substring(0, 1).charCodeAt(0) -
+            a.volumeInfo.title.substring(0, 1).charCodeAt(0)
+        );
       }
     });
 

@@ -12,6 +12,8 @@ const SearchArea = (props) => {
           </option>
           <option value="Newest First">Newest First</option>
           <option value="Oldest First">Oldest First</option>
+          <option value="A-Z">A-Z</option>
+          <option value="Z-A">Z-A</option>
         </select>
       </form>
     </div>
