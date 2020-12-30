@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
 import reqeust from "superagent";
+import Header from "./Header";
+import { getBook } from "./Api";
 
 const BookDetails = ({ match }) => {
   let handle = match.params.handle;
   const [book, setBook] = useState({});
 
-  console.log(handle);
+  useEffect(async () => {
+    await getBook(handle, setBook);
+  }, []);
 
   const cleanData = (data) => {
-    if (data.body.volumeInfo.hasOwnProperty("publishedDate") === false) {
-      data.body.volumeInfo["publishedDate"] = "0000";
-    } else if (data.body.volumeInfo.hasOwnProperty("imageLinks") === false) {
-      data.body.volumeInfo["imageLinks"] = {
+    if (data.hasOwnProperty("publishedDate") === false) {
+      data["publishedDate"] = "0000";
+    }
+    if (data.imageLinks == undefined) {
+      data["imageLinks"] = {
         thumbnail:
           "https://ualr.edu/elearning/files/2020/10/No-Photo-Available.jpg",
       };
@@ -19,29 +24,37 @@ const BookDetails = ({ match }) => {
     return data;
   };
 
-  const getBook = (setBooker) => {
-    reqeust
-      .get("https://www.googleapis.com/books/v1/volumes/" + handle)
-      .then((data) => {
-        let cleaned = cleanData(data);
-        setBook(cleaned);
-      });
-  };
+  console.log(book);
 
-  // const image = book.body.volumeInfo.image.thumbnail;
-  // const title = "bla";
-  // const author = "bla";
-  // const published = "bla";
-
-  useEffect(() => {
-    getBook(setBook);
-  }, []);
-
-  let book_title = book.body.volumeInfo.title;
+  // let book_title = book.title;
+  // let book_author = book.authors;
+  // let book_image = book.imageLinks.thumbnail;
+  // let book_publish_date = book.publishedDate;
 
   return (
-    <div className="card-container">
-      <h1>{book_title}</h1>
+    <div>
+      <Header />
+      <div className="book-details">
+        <h1>{book.title}</h1>
+        <h3>{book.subtitle}</h3>
+        {book.imageLinks == undefined ? (
+          <img
+            src="https://ualr.edu/elearning/files/2020/10/No-Photo-Available.jpg"
+            style={{ height: "500px", marginRight: "200px" }}
+          />
+        ) : (
+          <img
+            src={book.imageLinks.thumbnail}
+            style={{ height: "500px", marginRight: "200px" }}
+          />
+        )}
+        <h2>Written by: {book.authors}</h2>
+        <h4 style={{ margin: "20px" }}>publishedDate: {book.publishedDate}</h4>
+        <h3 style={{ margin: "20px" }}>publisher: {book.publisher}</h3>
+        <p>
+          Description: <br /> {book.description}
+        </p>
+      </div>
     </div>
   );
 };
