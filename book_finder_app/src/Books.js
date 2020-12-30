@@ -72,6 +72,7 @@ class Books extends Component {
             a.volumeInfo.title.substring(0, 1).charCodeAt(0)
         );
       }
+      return null;
     });
 
     return (

@@ -1,14 +1,9 @@
 import React, { Component } from "react";
-import BookDetails from "./BookDetails";
 import { Link } from "react-router-dom";
 
 class BookCard extends Component {
   handle = this.props.handle;
   detailUrl = "/book/" + this.handle;
-
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (
