@@ -22,7 +22,7 @@ class Books extends Component {
       .get("https://www.googleapis.com/books/v1/volumes")
       .query({ q: this.state.searchField })
       .then((data) => {
-        console.log(data);
+        this.setState({ books: [...data.body.items] });
       });
   };
 
