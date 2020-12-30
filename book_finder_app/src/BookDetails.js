@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import reqeust from "superagent";
 
 const BookDetails = ({ match }) => {
   let handle = match.params.handle;
+  const [book, setBook] = useState({});
+
   console.log(handle);
 
   const cleanData = (data) => {
@@ -17,19 +19,29 @@ const BookDetails = ({ match }) => {
     return data;
   };
 
-  const getBook = () => {
+  const getBook = (setBooker) => {
     reqeust
       .get("https://www.googleapis.com/books/v1/volumes/" + handle)
       .then((data) => {
-        const cleaned = cleanData(data);
-        console.log(cleaned);
+        let cleaned = cleanData(data);
+        setBook(cleaned);
       });
   };
 
-  console.log(getBook());
+  // const image = book.body.volumeInfo.image.thumbnail;
+  // const title = "bla";
+  // const author = "bla";
+  // const published = "bla";
+
+  useEffect(() => {
+    getBook(setBook);
+  }, []);
+
+  let book_title = book.body.volumeInfo.title;
+
   return (
-    <div>
-      <h1>getBook</h1>
+    <div className="card-container">
+      <h1>{book_title}</h1>
     </div>
   );
 };
